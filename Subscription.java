@@ -144,4 +144,16 @@ public class Subscription {
         this.status = SubscriptionStatus.ACTIVE;
     }
 
+    @Override
+    public String toString() {
+        return "Subscription{" +
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", price=" + price +
+            ", billingFrequency=" + billingFrequency +
+            ", renewalDate=" + renewalDate +
+            ", status=" + status +
+            ", category=" + category +
+            '}';
+    }
 }

@@ -1,0 +1,36 @@
+SubSentry is a Java-based subscription tracking and expense monitoring system. 
+It will allow users to manage their subscriptions, track their costs, monitor renewal dates,
+ and manage their subscription statuses.
+
+Many people use multiple subscription services, but managing them individually makes it difficult 
+to keep track of recurring payments, renewal dates, subscription status, and overall spending. 
+This can lead to forgotten subscriptions and poor visibility of recurring expenses.
+SubSentry is designed to provide one centralized system for managing and monitoring subscriptions.
+
+Subscription management
+
+Add subscriptions
+View subscriptions
+Update subscriptions
+Cancel subscriptions
+Pause/reactivate subscriptions
+Remove subscriptions
+
+Monitoring
+
+Track renewal dates
+Track subscription status
+Identify active subscriptions
+Identify upcoming renewals
+
+Financial tracking
+
+Calculate monthly spending
+Calculate yearly spending
+Organize spending by category
+
+Organization
+
+Categorize subscriptions
+Search subscriptions
+Filter subscriptions
