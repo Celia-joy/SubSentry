@@ -123,9 +123,9 @@ public class Subscription {
 
     public double calculateYearlyCost(){
         if (billingFrequency == BillingFrequency.YEARLY){
-            return price * 12;
+            return price;
         }
-        return price;
+        return price * 12;
     }
 
     public boolean isActive(){

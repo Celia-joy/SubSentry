@@ -1,26 +1,30 @@
 import java.util.ArrayList;
 
 public class SubscriptionManager{
-    private ArrayList<Subscription>subscriptions;
+    private ArrayList<Subscriber>subscribers;
 
     public SubscriptionManager(){
-        subscriptions = new ArrayList<>();
+        subscribers = new ArrayList<>();
     }
 
-    public void addSubscription(Subscription subscription){
-        subscriptions.add(subscription);
+    public void addSubscriber(Subscriber subscriber){
+        subscribers.add(subscriber);
     }
 
-    public void displaySubscriptions(){
-        for(Subscription subscription : subscriptions){
-            System.out.println(subscription);
+    public void displaySubscribers(){
+        for(Subscriber subscriber : subscribers){
+            System.out.println(
+                "ID: " + subscriber.getId() +
+                ", Name: " + subscriber.getName() +
+                ", Email: " + subscriber.getEmail()
+            );
         }
     }
 
-    public Subscription findSubscriptionById(int id){
-        for(Subscription subscription : subscriptions){
-            if(subscription.getId() == id){
-                return subscription;
+    public Subscriber findSubscriberById(int id){
+        for(Subscriber subscriber : subscribers){
+            if(subscriber.getId() == id){
+                return subscriber;
             }
         }
         return null;
