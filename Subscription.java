@@ -9,6 +9,7 @@ public class Subscription {
     private LocalDate renewalDate;
     private SubscriptionStatus status;
     private Category category;
+    private static int totalSubscriptions = 0;
 
 
 
@@ -46,6 +47,11 @@ public class Subscription {
         else {
             throw new IllegalArgumentException("Renewal date cannot be null");
         }
+        totalSubscriptions++;
+    }
+
+    public static int getTotalSubscriptions(){
+        return totalSubscriptions;
     }
 
     public int getId(){
