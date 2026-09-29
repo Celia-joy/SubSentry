@@ -105,5 +105,28 @@ public class Subscriber{
         }
         return total;
     }
+
+    public double calculateSpendingByCategory(Category category){
+        double total = 0;
+
+        for(Subscription subscription : subscriptions){
+            if(subscription.isActive()
+            && subscription.getCategory()== category){
+                total += subscription.calculateMonthlyCost();
+            }
+        }
+        return total;
+    }
+
+    public void displaySpendingByCategory(){
+        for (Category category : Category.values()){
+            double spending = calculateSpendingByCategory(category);
+
+            if(spending > 0){
+                System.out.println(category + ": $" + spending + " per month");
+            }
+        }
+    }
+
 }
 

@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 public class Subscription {
     private int id;
@@ -155,5 +156,42 @@ public class Subscription {
             ", status=" + status +
             ", category=" + category +
             '}';
+    }
+    public long daysUntilRenewal(){
+        return ChronoUnit.DAYS.between(
+            LocalDate.now(),
+            renewalDate
+        );
+    }
+
+    public void displayRenewalInfo(){
+        long days = daysUntilRenewal();
+
+        if(days <= 0 ){
+            System.out.println(name + "renewal is due today or has passed");
+        }
+        else if (days <= 7) {
+            System.out.println("Warning " + name + " renews in " + days + " days!");
+        }
+        else {
+            System.out.println(name + " renews in " + days + "days!");
+        }
+    }
+    @Override
+    public boolean equals(Object obj){
+        if (this == obj){
+            return true;
+        }
+        if(!(obj instanceof Subscription)){
+            return false;
+        }
+
+        Subscription other = (Subscription) obj;
+        return this.id == other.id;
+    }
+
+    @Override
+    public int hashCode(){
+        return Integer.hashCode(id);
     }
 }

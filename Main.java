@@ -12,6 +12,20 @@ public class Main {
             Category.ENTERTAINMENT
         );
 
+        Subscription netflixCopy = new Subscription (
+            1,
+            "Netflix",
+            15.99,
+            BillingFrequency.MONTHLY,
+            LocalDate.of(2026, 10, 1),
+            SubscriptionStatus.ACTIVE,
+            Category.ENTERTAINMENT
+        );
+
+        System.out.println("Same object? " + (netflix == netflixCopy));
+        System.out.println("Equal objects? " + netflix.equals(netflixCopy));
+        System.out.println("Same hashCode? " + (netflix.hashCode() == netflixCopy.hashCode()));
+
         Subscription spotify = new Subscription (
             2,
             "Spotify",
@@ -33,6 +47,19 @@ public class Main {
         celia.displaySubscriptions();
         System.out.println("Monthly spending: $" + celia.calculateMonthlySpending());
         System.out.println("Yearly spending: $" + celia.calculateYearlySpending());
+        System.out.println("Days until renewal: " + netflix.daysUntilRenewal());
+        netflix.displayRenewalInfo();
+        spotify.displayRenewalInfo();
+        /*System.out.println(
+            "Entertainment spending: $" +
+            celia.calculateSpendingByCategory(Category.ENTERTAINMENT)
+        );
+        System.out.println(
+            "Music spending: $" +
+            celia.calculateSpendingByCategory(Category.MUSIC)
+        );*/
+        System.out.println("\nSpending by category: ");
+        celia.displaySpendingByCategory();
 
         SubscriptionManager manager = new SubscriptionManager();
         manager.addSubscriber(celia);
