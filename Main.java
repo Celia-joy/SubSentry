@@ -1,6 +1,8 @@
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args){
@@ -24,16 +26,6 @@ public class Main {
             Category.ENTERTAINMENT
         );
 
-        /*Set<Subscription> subscriptionSet = new HashSet<>();
-        subscriptionSet.add(netflix);
-        subscriptionSet.add(netflixCopy);
-        
-        System.out.println("Number of subscriptions: " + subscriptionSet.size());
-        System.out.println("Same object? " + (netflix == netflixCopy));
-        System.out.println("Equal objects? " + netflix.equals(netflixCopy));
-        System.out.println("Same hashCode? " + (netflix.hashCode() == netflixCopy.hashCode()));
-        */
-
         Subscription spotify = new Subscription (
             2,
             "Spotify",
@@ -43,6 +35,45 @@ public class Main {
             SubscriptionStatus.ACTIVE,
             Category.MUSIC
         );
+        System.out.println("Available subscriptions: ");
+        for (Category category : Category.values()){
+            System.out.println(category);
+        }
+
+        Category selectedCategory = Category.valueOf("MUSIC");
+        System.out.println("Selected category: " + selectedCategory);
+
+
+        /*
+
+        HashMap<Integer, Subscription> subscriptionMap = new HashMap<>();
+
+        subscriptionMap.put(netflix.getId(), netflix);
+        subscriptionMap.put(spotify.getId(), spotify);
+
+        System.out.println(subscriptionMap.get(1));
+        System.out.println(subscriptionMap.get(2));
+        System.out.println("Number of subscriptions: " + subscriptionMap.size());
+
+        System.out.println("\nAll subscriptions:");
+        for(Map.Entry<Integer, Subscription> entry : subscriptionMap.entrySet()) {
+            System.out.println(
+                "ID: " + entry.getKey()
+                + ", Name: " + entry.getValue().getName()
+            );
+        }
+
+        */
+
+        /*Set<Subscription> subscriptionSet = new HashSet<>();
+        subscriptionSet.add(netflix);
+        subscriptionSet.add(netflixCopy);
+        
+        System.out.println("Number of subscriptions: " + subscriptionSet.size());
+        System.out.println("Same object? " + (netflix == netflixCopy));
+        System.out.println("Equal objects? " + netflix.equals(netflixCopy));
+        System.out.println("Same hashCode? " + (netflix.hashCode() == netflixCopy.hashCode()));
+        */
 
         /*
         Subscriber celia = new Subscriber(
@@ -151,7 +182,7 @@ public class Main {
        }
        */
 
-       System.out.println("Total subscriptions created: " + Subscription.getTotalSubscriptions());
+       //System.out.println("Total subscriptions created: " + Subscription.getTotalSubscriptions());
     }
 
     /*

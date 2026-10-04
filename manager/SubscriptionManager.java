@@ -1,18 +1,18 @@
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class SubscriptionManager{
-    private ArrayList<Subscriber>subscribers;
+    private HashMap<Integer, Subscriber>subscribers;
 
     public SubscriptionManager(){
-        subscribers = new ArrayList<>();
+        subscribers = new HashMap<>();
     }
 
     public void addSubscriber(Subscriber subscriber){
-        subscribers.add(subscriber);
+        subscribers.put(subscriber.getId(), subscriber);
     }
 
     public void displaySubscribers(){
-        for(Subscriber subscriber : subscribers){
+        for(Subscriber subscriber : subscribers.values()){
             System.out.println(
                 "ID: " + subscriber.getId() +
                 ", Name: " + subscriber.getName() +
@@ -20,13 +20,7 @@ public class SubscriptionManager{
             );
         }
     }
-
     public Subscriber findSubscriberById(int id){
-        for(Subscriber subscriber : subscribers){
-            if(subscriber.getId() == id){
-                return subscriber;
-            }
-        }
-        return null;
+        return subscribers.get(id);
     }
 }

@@ -1,9 +1,10 @@
-import java.util.ArrayList;
+import java.util.HashMap;
+
 public class Subscriber{
     private int id;
     private String name;
     private String email;
-    private ArrayList<Subscription> subscriptions;
+    private HashMap<Integer, Subscription> subscriptions;
 
     public Subscriber(int id, String name, String email){
         if(id > 0 ){
@@ -24,7 +25,7 @@ public class Subscriber{
         else {
             throw new IllegalArgumentException("Invalid email");
         }
-        this.subscriptions = new ArrayList<>();
+        this.subscriptions = new HashMap<>();
     }
 
     public int getId(){
@@ -57,7 +58,7 @@ public class Subscriber{
 
     public void addSubscription(Subscription subscription){
         if(subscription != null){
-            subscriptions.add(subscription);
+            subscriptions.put(subscription.getId(), subscription);
         }
         else{
             throw new IllegalArgumentException("Subscription cannot be null");
@@ -65,30 +66,25 @@ public class Subscriber{
     }
     public void removeSubscription(Subscription subscription){
         if(subscription != null){
-            subscriptions.remove(subscription);
+            subscriptions.remove(subscription.getId());
         }
         else{
             throw new IllegalArgumentException("Subscription cannot be null");
         }     
     }
     public Subscription findSubscriptionById(int id){
-        for (Subscription subscription : subscriptions){
-            if (subscription.getId() == id){
-                return subscription;
-            }
-        }
-        return null;
+        return subscriptions.get(id);
     }
 
     public void displaySubscriptions(){
-        for (Subscription subscription : subscriptions){
+        for (Subscription subscription : subscriptions.values()){
             System.out.println(subscription);
         }
     }
 
     public double calculateMonthlySpending(){
         double total = 0;
-        for (Subscription subscription : subscriptions){
+        for (Subscription subscription : subscriptions.values()){
             if(subscription.isActive()){
                 total += subscription.calculateMonthlyCost();
             }
@@ -98,7 +94,7 @@ public class Subscriber{
 
     public double calculateYearlySpending(){
         double total = 0;
-        for (Subscription subscription : subscriptions){
+        for (Subscription subscription : subscriptions.values()){
             if(subscription.isActive()){
                 total += subscription.calculateYearlyCost();
             }
@@ -109,7 +105,7 @@ public class Subscriber{
     public double calculateSpendingByCategory(Category category){
         double total = 0;
 
-        for(Subscription subscription : subscriptions){
+        for(Subscription subscription : subscriptions.values()){
             if(subscription.isActive()
             && subscription.getCategory()== category){
                 total += subscription.calculateMonthlyCost();
