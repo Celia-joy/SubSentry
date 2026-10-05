@@ -1,4 +1,7 @@
+package manager;
+
 import java.util.HashMap;
+import model.Subscriber;
 
 public class SubscriptionManager{
     private HashMap<Integer, Subscriber>subscribers;
