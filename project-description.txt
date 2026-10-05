@@ -34,3 +34,14 @@ Organization
 Categorize subscriptions
 Search subscriptions
 Filter subscriptions
+
+Subscription → manages a subscription
+Subscriber → manages a subscriber and their subscriptions
+SubscriptionManager → manages subscribers
+SubscriptionException → handles subscription errors
+
+S — One class → one main responsibility
+O — Extend without constantly modifying existing code
+L — Child can safely replace parent
+I — Don't force unnecessary interface methods
+D — Depend on abstractions, not concrete implementations
