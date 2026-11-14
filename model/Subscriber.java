@@ -7,6 +7,16 @@ public class Subscriber{
     private String email;
     private HashMap<Integer, Subscription> subscriptions;
 
+    @Override
+    public String toString() {
+        return "Subscriber{" +
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", email='" + email + '\'' +
+            ", subscriptions=" + subscriptions +
+            '}';
+    }
+
     public Subscriber(int id, String name, String email){
         if(id > 0 ){
             this.id = id;
@@ -58,13 +68,15 @@ public class Subscriber{
     }
 
     public void addSubscription(Subscription subscription){
-        if(subscription != null){
-            subscriptions.put(subscription.getId(), subscription);
-        }
-        else{
+        if(subscription == null){
             throw new IllegalArgumentException("Subscription cannot be null");
         }
+        if(subscriptions.containsKey(subscription.getId())){
+            throw new IllegalArgumentException("Subscription ID already exists");
+        }
+        subscriptions.put(subscription.getId(), subscription);
     }
+
     public void removeSubscription(Subscription subscription){
         if(subscription != null){
             subscriptions.remove(subscription.getId());

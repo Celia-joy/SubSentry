@@ -23,9 +23,29 @@ public class Subscription {
         SubscriptionStatus status,
         Category category
     ){
-        this.id = id;
+
+        if(id > 0){
+            this.id = id;
+        }
+        else{
+            throw new IllegalArgumentException("ID must be greater than zero.");
+        }
+
+        if (billingFrequency == null){
+            throw new IllegalArgumentException("Billing frequency cannot be null");
+        }
+
         this.billingFrequency = billingFrequency;
+
+        if (status == null){
+            throw new IllegalArgumentException("Status cannot be null");
+        }
         this.status = status;
+
+        if(category == null){
+            throw new IllegalArgumentException("Category cannot be null");
+        }
+
         this.category = category;
 
         if (price >= 0){
@@ -77,7 +97,7 @@ public class Subscription {
     }
 
     public void setPrice(double price){
-        if(price >= 0){
+        if(price >= 0 && Double.isFinite(price)){
             this.price = price;
         }
         else {
@@ -90,6 +110,9 @@ public class Subscription {
     }
 
     public void setBillingFrequency(BillingFrequency billingFrequency){
+        if(billingFrequency == null){
+            throw new IllegalArgumentException("Billing frequency cannot be null");
+        }
         this.billingFrequency = billingFrequency;
     }
 
@@ -111,6 +134,9 @@ public class Subscription {
     }
 
     public void setStatus(SubscriptionStatus status){
+        if(status == null){
+            throw new IllegalArgumentException("Status cannot be null");
+        }
         this.status = status;
     }
 
@@ -119,6 +145,9 @@ public class Subscription {
     }
 
     public void setCategory(Category category){
+        if(category == null){
+            throw new IllegalArgumentException("Category cannot be null");
+        }
         this.category = category;
     }
 

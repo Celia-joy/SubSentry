@@ -17,6 +17,7 @@ import exception.SubscriptionException;
 
 public class Main {
     public static void main(String[] args){
+
         Subscription netflix = new Subscription (
             1,
             "Netflix",
@@ -27,6 +28,7 @@ public class Main {
             Category.ENTERTAINMENT
         );
 
+        /*
         Subscription netflixCopy = new Subscription (
             1,
             "Netflix",
@@ -36,6 +38,7 @@ public class Main {
             SubscriptionStatus.ACTIVE,
             Category.ENTERTAINMENT
         );
+        
 
         Subscription spotify = new Subscription (
             2,
@@ -46,6 +49,75 @@ public class Main {
             SubscriptionStatus.ACTIVE,
             Category.MUSIC
         );
+
+        Subscription youtube = new Subscription(
+            2,
+            "Youtube",
+            12.33,
+            BillingFrequency.YEARLY,
+            LocalDate.of(2026, 11, 15),
+            SubscriptionStatus.ACTIVE,
+            Category.MUSIC
+        );
+
+        Forever.addSubscription(netflix);
+        Forever.addSubscription(spotify);
+
+        try{
+            Forever.addSubscription(youtube);
+        }
+        catch(IllegalArgumentException e){
+            System.out.println("Expected error: " + e.getMessage());
+        }
+
+        Forever.displaySubscriptions();
+        */
+
+       Subscriber Forever = new Subscriber(
+            1,
+            "Forever Hyacinthe",
+            "foreverhyacinthe@gmail.com"
+        );
+
+        Subscriber duplicate = new Subscriber(
+            1,
+            "Jenny Miriotta",
+            "ishimwejennymiriotta@gmail.com"
+        );
+
+        SubscriptionManager manager = new SubscriptionManager();
+        try{
+            manager.addSubscriber(Forever);
+            manager.addSubscriber(duplicate);
+        }
+        catch(IllegalArgumentException e){
+            System.out.println("Error expected: " + e.getMessage());
+        }
+        System.out.println(manager.findSubscriberById(1));
+        manager.displaySubscribers();
+
+        try{
+            manager.findSubscriberById(0);
+        }
+        catch(IllegalArgumentException e){
+            System.out.println("Expected error: " + e.getMessage());
+        }
+
+        Subscriber result = manager.findSubscriberById(500);
+        if (result == null){
+            System.out.println("Subscriber not found");
+        }
+
+        
+
+        /*
+        SubscriptionManager emptyManager = new SubscriptionManager();
+        emptyManager.displaySubscribers();
+        */
+
+        /*
+
+
         System.out.println("Available subscriptions: ");
         for (Category category : Category.values()){
             System.out.println(category);
@@ -53,6 +125,8 @@ public class Main {
 
         Category selectedCategory = Category.valueOf("MUSIC");
         System.out.println("Selected category: " + selectedCategory);
+
+        */
 
 
         /*
