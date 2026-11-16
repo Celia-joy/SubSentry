@@ -119,7 +119,7 @@ public class Subscriber{
             throw new IllegalArgumentException("Subscription not found.");
         }
 
-        Subscription subscription = subscription.get(id);
+        Subscription subscription = subscriptions.get(id);
 
         if (subscription == null){
             throw new IllegalArgumentException("Subscription not found.");

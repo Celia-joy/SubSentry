@@ -3,7 +3,6 @@ package tests;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-
 import java.time.LocalDate;
 
 import model.Subscriber;
@@ -144,36 +143,6 @@ public class SubscriberTests {
             "Update subscriber name"
         );
 
-        subscriber.updateSubscriptionBillingFrequency(
-            1, 
-            BillingFrequency.YEARLY
-        );
-
-        assertTrue(
-            netflix.getBillingFrequency() == BillingFrequency.YEARLY,
-            "Update subscription billing frequency"
-        );
-
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> subscriber.updateSubscriptionBillingFrequency(
-                999, BillingFrequency.MONTHLY
-            ),
-            "Reject billing frequency update for nonexistent subscription"
-        );
-
-        asssertThrows(
-            IllegalArgumentException.class,
-            () -> subscriber.updateSubscriptionBillingFrequency(1, null),
-                1, BillingFrequency.MONTHLY
-            "Reject billing frequency update for subscription with different billing frequency"
-        );
-
-        subscriber.updateSubscriptionBillingFrequency(
-            1,
-            BillingFrequency.MONTHLY
-        );
-
         assertThrows(IllegalArgumentException.class,
             () -> subscriber.setName(null),
             "Reject null name in setter");
@@ -237,6 +206,7 @@ public class SubscriberTests {
             "Return null for missing subscription"
         );
 
+        // Update subscription price
         subscriber.updateSubscriptionPrice(1, 20.0);
 
         assertTrue(
@@ -258,6 +228,7 @@ public class SubscriberTests {
             "Reject negative price during update"
         );
 
+        // Update subscription name
         subscriber.updateSubscriptionName(1, "Netflix Premium");
 
         assertTrue(
@@ -279,6 +250,38 @@ public class SubscriberTests {
 
         subscriber.updateSubscriptionName(1, "Netflix");
 
+        // Update subscription billing frequency
+        subscriber.updateSubscriptionBillingFrequency(
+            1,
+            BillingFrequency.YEARLY
+        );
+
+        assertTrue(
+            netflix.getBillingFrequency() == BillingFrequency.YEARLY,
+            "Update subscription billing frequency"
+        );
+
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> subscriber.updateSubscriptionBillingFrequency(
+                999, BillingFrequency.MONTHLY
+            ),
+            "Reject billing frequency update for nonexistent subscription"
+        );
+
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> subscriber.updateSubscriptionBillingFrequency(1, null),
+            "Reject null billing frequency during update"
+        );
+
+        // Restore original frequency for spending tests
+        subscriber.updateSubscriptionBillingFrequency(
+            1,
+            BillingFrequency.MONTHLY
+        );
+
+        // Reject duplicate subscription ID
         Subscription duplicate = createSubscription(
             1, "Duplicate Netflix", 20.0,
             BillingFrequency.MONTHLY,
@@ -288,8 +291,7 @@ public class SubscriberTests {
 
         assertThrows(IllegalArgumentException.class,
             () -> subscriber.addSubscription(duplicate),
-            "Reject duplicate subscription ID"
-        );
+            "Reject duplicate subscription ID");
 
         // Spending calculations
         assertTrue(
@@ -354,6 +356,7 @@ public class SubscriberTests {
             "Recalculate spending after removal"
         );
 
+        // Empty subscriber
         Subscriber emptySubscriber = new Subscriber(
             99, "Empty Subscriber", "empty@example.com"
         );
