@@ -48,11 +48,11 @@ public class Subscription {
 
         this.category = category;
 
-        if (price >= 0){
+        if (price >= 0 && Double.isFinite(price)){
             this.price = price;
         }
         else {
-            throw new IllegalArgumentException("Price cannot be negative");
+            throw new IllegalArgumentException("Price cannot be negative or infinite");
         }
 
         if (name != null && !name.isBlank()){
@@ -101,7 +101,7 @@ public class Subscription {
             this.price = price;
         }
         else {
-            throw new IllegalArgumentException("Price cannot be negative");
+            throw new IllegalArgumentException("Price cannot be negative or infinite");
         }
     }
 

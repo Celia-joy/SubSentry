@@ -78,18 +78,69 @@ public class Subscriber{
     }
 
     public void removeSubscription(Subscription subscription){
-        if(subscription != null){
-            subscriptions.remove(subscription.getId());
-        }
-        else{
+        if (subscription == null){
             throw new IllegalArgumentException("Subscription cannot be null");
-        }     
+        }
+
+        if (!subscriptions.containsKey(subscription.getId())){
+            throw new IllegalArgumentException("Subscription not found");
+        }
+
+        subscriptions.remove(subscription.getId());
     }
+
+    public void updateSubscriptionPrice(int id, double newPrice){
+        if(id <= 0){
+            throw new IllegalArgumentException("ID must be greater than zero.");
+        }
+
+        Subscription subscription = subscriptions.get(id);
+        if (subscription == null){
+            throw new IllegalArgumentException("Subscription not found");
+        }
+        subscription.setPrice(newPrice);
+    }
+
+    public void updateSubscriptionName(int id, String newName){
+        if(id <= 0){
+            throw new IllegalArgumentException("ID must be greater than zero");
+        }
+
+        Subscription subscription = subscriptions.get(id);
+        if(subscription == null){
+            throw new IllegalArgumentException("Subscription not found. ");
+        }
+
+        subscription.setName(newName);
+    }
+
+    public void updateSubscriptionBillingFrequency(int id, BillingFrequency newFrequency){
+        if (id <= 0){
+            throw new IllegalArgumentException("Subscription not found.");
+        }
+
+        Subscription subscription = subscription.get(id);
+
+        if (subscription == null){
+            throw new IllegalArgumentException("Subscription not found.");
+        }
+        subscription.setBillingFrequency(newFrequency);
+    }
+
+
     public Subscription findSubscriptionById(int id){
+        if(id <= 0){
+            throw new IllegalArgumentException("ID must be positive");
+        }
         return subscriptions.get(id);
     }
 
     public void displaySubscriptions(){
+
+        if(subscriptions.isEmpty()){
+            System.out.println("No subscriptions found");
+            return;
+        }
         for (Subscription subscription : subscriptions.values()){
             System.out.println(subscription);
         }

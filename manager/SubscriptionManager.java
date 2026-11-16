@@ -40,4 +40,16 @@ public class SubscriptionManager{
         }
         return subscribers.get(id);
     }
+
+    public void removeSubscriber(int id){
+        if(id <= 0){
+            throw new IllegalArgumentException("Subscriber ID must be greater than zero.");
+        }
+
+        if (!subscribers.containsKey(id)){
+            throw new IllegalArgumentException("Subscriber not found.");
+        }
+
+        subscribers.remove(id);
+    }
 }

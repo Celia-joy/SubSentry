@@ -1,302 +1,91 @@
+
 import java.time.LocalDate;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.HashMap;
-import java.util.Map;
-
 import model.Subscription;
+import model.Subscriber;
 import model.BillingFrequency;
 import model.SubscriptionStatus;
 import model.Category;
-import model.Subscriber;
-import model.Box;
 
 import manager.SubscriptionManager;
-import exception.SubscriptionException;
 
 public class Main {
-    public static void main(String[] args){
 
-        Subscription netflix = new Subscription (
+    public static void main(String[] args) {
+
+        // Create the subscription manager
+        SubscriptionManager manager = new SubscriptionManager();
+
+        // Create a subscriber
+        Subscriber subscriber = new Subscriber(
             1,
+            "Forever Hyacinthe",
+            "forever@example.com"
+        );
+
+        // Create subscriptions
+        Subscription netflix = new Subscription(
+            101,
             "Netflix",
             15.99,
             BillingFrequency.MONTHLY,
-            LocalDate.of(2026, 10, 1),
+            LocalDate.now().plusDays(10),
             SubscriptionStatus.ACTIVE,
             Category.ENTERTAINMENT
         );
 
-        /*
-        Subscription netflixCopy = new Subscription (
-            1,
-            "Netflix",
-            15.99,
-            BillingFrequency.MONTHLY,
-            LocalDate.of(2026, 10, 1),
-            SubscriptionStatus.ACTIVE,
-            Category.ENTERTAINMENT
-        );
-        
-
-        Subscription spotify = new Subscription (
-            2,
+        Subscription spotify = new Subscription(
+            102,
             "Spotify",
             10.99,
             BillingFrequency.MONTHLY,
-            LocalDate.of(2026, 10, 1),
+            LocalDate.now().plusDays(15),
             SubscriptionStatus.ACTIVE,
             Category.MUSIC
         );
 
         Subscription youtube = new Subscription(
-            2,
-            "Youtube",
-            12.33,
+            103,
+            "YouTube",
+            120.00,
             BillingFrequency.YEARLY,
-            LocalDate.of(2026, 11, 15),
+            LocalDate.now().plusDays(30),
             SubscriptionStatus.ACTIVE,
-            Category.MUSIC
+            Category.ENTERTAINMENT
         );
 
-        Forever.addSubscription(netflix);
-        Forever.addSubscription(spotify);
+        // Add subscriptions to the subscriber
+        subscriber.addSubscription(netflix);
+        subscriber.addSubscription(spotify);
+        subscriber.addSubscription(youtube);
 
-        try{
-            Forever.addSubscription(youtube);
-        }
-        catch(IllegalArgumentException e){
-            System.out.println("Expected error: " + e.getMessage());
-        }
+        // Register subscriber with the manager
+        manager.addSubscriber(subscriber);
 
-        Forever.displaySubscriptions();
-        */
+        // Display application information
+        System.out.println("========== SUBSENTRY ==========");
 
-       Subscriber Forever = new Subscriber(
-            1,
-            "Forever Hyacinthe",
-            "foreverhyacinthe@gmail.com"
-        );
-
-        Subscriber duplicate = new Subscriber(
-            1,
-            "Jenny Miriotta",
-            "ishimwejennymiriotta@gmail.com"
-        );
-
-        SubscriptionManager manager = new SubscriptionManager();
-        try{
-            manager.addSubscriber(Forever);
-            manager.addSubscriber(duplicate);
-        }
-        catch(IllegalArgumentException e){
-            System.out.println("Error expected: " + e.getMessage());
-        }
-        System.out.println(manager.findSubscriberById(1));
+        System.out.println("\n========== SUBSCRIBERS ==========");
         manager.displaySubscribers();
 
-        try{
-            manager.findSubscriberById(0);
-        }
-        catch(IllegalArgumentException e){
-            System.out.println("Expected error: " + e.getMessage());
-        }
+        System.out.println("\n========== SUBSCRIPTIONS ==========");
+        subscriber.displaySubscriptions();
 
-        Subscriber result = manager.findSubscriberById(500);
-        if (result == null){
-            System.out.println("Subscriber not found");
-        }
+        System.out.println("\n========== SPENDING ==========");
 
-        
-
-        /*
-        SubscriptionManager emptyManager = new SubscriptionManager();
-        emptyManager.displaySubscribers();
-        */
-
-        /*
-
-
-        System.out.println("Available subscriptions: ");
-        for (Category category : Category.values()){
-            System.out.println(category);
-        }
-
-        Category selectedCategory = Category.valueOf("MUSIC");
-        System.out.println("Selected category: " + selectedCategory);
-
-        */
-
-
-        /*
-
-        HashMap<Integer, Subscription> subscriptionMap = new HashMap<>();
-
-        subscriptionMap.put(netflix.getId(), netflix);
-        subscriptionMap.put(spotify.getId(), spotify);
-
-        System.out.println(subscriptionMap.get(1));
-        System.out.println(subscriptionMap.get(2));
-        System.out.println("Number of subscriptions: " + subscriptionMap.size());
-
-        System.out.println("\nAll subscriptions:");
-        for(Map.Entry<Integer, Subscription> entry : subscriptionMap.entrySet()) {
-            System.out.println(
-                "ID: " + entry.getKey()
-                + ", Name: " + entry.getValue().getName()
-            );
-        }
-
-        */
-
-        /*Set<Subscription> subscriptionSet = new HashSet<>();
-        subscriptionSet.add(netflix);
-        subscriptionSet.add(netflixCopy);
-        
-        System.out.println("Number of subscriptions: " + subscriptionSet.size());
-        System.out.println("Same object? " + (netflix == netflixCopy));
-        System.out.println("Equal objects? " + netflix.equals(netflixCopy));
-        System.out.println("Same hashCode? " + (netflix.hashCode() == netflixCopy.hashCode()));
-        */
-
-        /*
-        Subscriber celia = new Subscriber(
-            1,
-            "Celia Joy",
-            "joyihirwecelia@gmail.com"
-        );
-
-        celia.addSubscription(netflix);
-        celia.addSubscription(spotify);
-        celia.displaySubscriptions();
-        System.out.println("Monthly spending: $" + celia.calculateMonthlySpending());
-        System.out.println("Yearly spending: $" + celia.calculateYearlySpending());
-        System.out.println("Days until renewal: " + netflix.daysUntilRenewal());
-        netflix.displayRenewalInfo();
-        spotify.displayRenewalInfo();
-        */
-
-        /*System.out.println(
-            "Entertainment spending: $" +
-            celia.calculateSpendingByCategory(Category.ENTERTAINMENT)
-        );
         System.out.println(
-            "Music spending: $" +
-            celia.calculateSpendingByCategory(Category.MUSIC)
-        );*/
-        /*
-        System.out.println("\nSpending by category: ");
-        celia.displaySpendingByCategory();
+            "Monthly spending: $" +
+            subscriber.calculateMonthlySpending()
+        );
 
-        SubscriptionManager manager = new SubscriptionManager();
-        manager.addSubscriber(celia);
-        manager.displaySubscribers();
+        System.out.println(
+            "Yearly spending: $" +
+            subscriber.calculateYearlySpending()
+        );
 
-        Subscriber found = manager.findSubscriberById(1);
-        System.out.println(found.getName());
-        */ 
+        System.out.println("\n========== SPENDING BY CATEGORY ==========");
+        subscriber.displaySpendingByCategory();
 
-        /*
-        System.out.println("ID: " + netflix.getId());
-        System.out.println("Name: " + netflix.getName());
-        System.out.println("Price: $" + netflix.getPrice());
-        System.out.println("Billing Frequency: " + netflix.getBillingFrequency());
-        System.out.println("Renewal Date: " + netflix.getRenewalDate());
-        System.out.println("Status: " + netflix.getStatus());
-        System.out.println("Category: " + netflix.getCategory());
-        System.out.println("Monthly cost: $" + netflix.calculateMonthlyCost());
-        System.out.println("Yearly cost: $" + netflix.calculateYearlyCost());
-        System.out.println("Is active? " + netflix.isActive());
-
-        netflix.cancel();
-
-        System.out.println("Status after cancellation: " + netflix.getStatus());
-        */
-
-        /*
-        System.out.println(netflix);
-        netflix.pause();
-        System.out.println(netflix);
-
-        netflix.activate();
-        System.out.println(netflix);
-        */  
-       /*
-       Box<String> nameBox = new Box<>("Celia Joy");
-       System.out.println(nameBox.getValue());
-
-       Box<Subscription> subscriptionBox = new Box<>(netflix);
-       System.out.println(subscriptionBox.getValue());    
-       */
-        /*
-        try {
-            Subscriber testSubscriber = new Subscriber(
-                2,
-                "Test User",
-                //"Wrong-emai"
-                "test@gmail.com"
-            );
-            System.out.println("Subscriber created successfully.");
-        }
-
-        catch(IllegalArgumentException e){
-            System.out.println("Error creating subscriber: " + e.getMessage());
-        }
-
-        finally {
-            System.out.println("Subscriber creation attempt finished.");
-        }
-        */
-
-       /*
-       
-       try {
-        checkPrice(-10);
-       }
-       catch(Exception e){
-        System.out.println("Error: " + e.getMessage());
-       }
-       */
-       /*
-       try {
-        checkSubscriptionPrice(-10);
-       }
-       catch (SubscriptionException e){
-        System.out.println("SubSentry Error: " + e.getMessage());
-       }
-       */
-
-       //System.out.println("Total subscriptions created: " + Subscription.getTotalSubscriptions());
+        System.out.println("\n========== END OF SUBSENTRY ==========");
     }
-
-    /*
-    public static void checkPrice(double price) throws Exception {
-        if (price < 0){
-            throw new Exception("Price cannot be negative");
-        }
-        System.out.println("Price is valid.");
-    }
-    */
-   /*
-
-   public static void checkSubscriptionPrice(double price)
-        throws SubscriptionException {
-            if (price < 0 ){
-                throw new SubscriptionException(
-                    "Subscription price cannot be negative."
-                );
-            }
-            System.out.println("Subscription price is valid.");
-        }
-        */
-
-       /*
-Instance = belongs to one object.
-static = belongs to the class itself.
-*/
-
 }
-
-
-
